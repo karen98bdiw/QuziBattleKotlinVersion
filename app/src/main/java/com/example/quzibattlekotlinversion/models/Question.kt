@@ -1,6 +1,8 @@
 package com.example.quzibattlekotlinversion.models
 
-class Question(var questionNumber:Int,var questonText:String) {
+import java.io.Serializable
+
+class Question(var questionNumber:Int,var questonText:String):Serializable {
 
     var options = arrayListOf<Option>()
 

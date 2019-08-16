@@ -36,11 +36,11 @@
 
         <Button
                 style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                android:id="@+id/createTestBtn"
+                android:id="@+id/goToCreateTestBtn"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text = "@string/createTestBtnText"/>
+                android:text = "@string/goToCreateTestBtnText"/>
         <Button
                 style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:id="@+id/sendTestBtn"

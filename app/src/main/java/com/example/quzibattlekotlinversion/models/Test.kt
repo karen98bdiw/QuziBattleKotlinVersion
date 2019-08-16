@@ -1,6 +1,8 @@
 package com.example.quzibattlekotlinversion.models
 
-class Test(val testName:String,val testDuration:Int,val testCreator:String) {
+import java.io.Serializable
+
+class Test(val testName:String,val testDuration:String,val testCreator:String) :Serializable{
 
     var questions = arrayListOf<Question>()
 

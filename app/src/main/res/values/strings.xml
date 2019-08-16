@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">QuziBattleKotlinVersion</string>
-    <string name="testDurationViewDescription">Duration is </string>
-    <string name="testQuestionsCountViewDescription">Question count is </string>
-    <string name="testCreaterUsernameViewDescription">Creator is </string>
-    <string name="createTestBtnText">Create</string>
+    <string name="testDurationViewDescription">Duration is</string>
+    <string name="testQuestionsCountViewDescription">Question count is</string>
+    <string name="testCreaterUsernameViewDescription">Creator is</string>
+    <string name="goToCreateTestBtnText">Create</string>
     <string name="sendTestBtnText">Send</string>
     <string name="takeTestBtnText">Take</string>
+    <string name="addOptionBtnText">Add Option</string>
+    <string name="addQuestionBtnText">Add question</string>
+    <string name="goToCreateTestBtn">Create test</string>
+    <string name="createTestBtn">Submit</string>
+
 </resources>
