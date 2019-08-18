@@ -1,6 +1,7 @@
 package com.example.quzibattlekotlinversion.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,9 @@ class TestRecyclerViewAdapter(private val context:Context):RecyclerView.Adapter<
     private val durationDescription = this.context.resources.getString(R.string.testDurationViewDescription)
     private val questionsCountDescription = this.context.resources.getString(R.string.testQuestionsCountViewDescription)
     private val creatorUsernameDescription = this.context.resources.getString(R.string.testCreaterUsernameViewDescription)
+    private val testItemChoosenBackgroundColor = this.context.resources.getColor(R.color.testRecyclerItemOnChooseBackground)
+    private var onTestItemClickIterator = 0
+    private var isTestItemChoosed = false
 
 
     private val testes = arrayListOf<Test>()
@@ -78,10 +82,23 @@ class TestRecyclerViewAdapter(private val context:Context):RecyclerView.Adapter<
         holder.testCreaterUsernameView.text = testCreatorUsernameForSet
         holder.testQuestionsCountView.text = testQuestionCountForSet
 
+        holder.testItemView.setOnClickListener {
+            onTestItemClickIterator++
+            isTestItemChoosed = !(onTestItemClickIterator%2 == 0)
+            if(isTestItemChoosed){
+                it.setBackgroundColor(testItemChoosenBackgroundColor)
+            }else{
+                it.setBackgroundColor(Color.TRANSPARENT)
+            }
+
+        }
+
     }
 
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+
+        val testItemView = itemView.rootView
         val testNameView = itemView.testRecyclerTestNameView!!
         val testDurationView = itemView.testRecyclerTestDurationView!!
         val testQuestionsCountView = itemView.testRecyclerTestQuestionsCountView!!

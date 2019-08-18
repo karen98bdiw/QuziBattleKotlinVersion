@@ -2,6 +2,7 @@ package com.example.quzibattlekotlinversion.utils
 
 import android.text.TextUtils
 import android.widget.EditText
+import androidx.room.TypeConverter
 
 class Utils {
 

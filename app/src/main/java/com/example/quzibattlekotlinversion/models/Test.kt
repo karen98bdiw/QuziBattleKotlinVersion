@@ -1,8 +1,18 @@
 package com.example.quzibattlekotlinversion.models
 
+import androidx.room.*
+import com.example.quzibattlekotlinversion.utils.QuestionConverter
 import java.io.Serializable
 
-class Test(val testName:String,val testDuration:String,val testCreator:String) :Serializable{
+@Entity
+@TypeConverters(QuestionConverter::class)
+class Test(
+    val testName:String,
+    val testDuration:String,
+    val testCreator:String) :Serializable{
+
+    @PrimaryKey(autoGenerate = true)
+    var id:Int = 0
 
     var questions = arrayListOf<Question>()
 

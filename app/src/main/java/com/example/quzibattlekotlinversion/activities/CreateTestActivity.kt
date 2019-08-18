@@ -6,14 +6,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.quzibattlekotlinversion.R
 import com.example.quzibattlekotlinversion.models.Question
 import com.example.quzibattlekotlinversion.models.Test
+import com.example.quzibattlekotlinversion.utils.TestDatabase
 import com.example.quzibattlekotlinversion.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_test.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.in_add_question_view.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 
 class CreateTestActivity : AppCompatActivity() {
@@ -23,6 +28,8 @@ class CreateTestActivity : AppCompatActivity() {
     lateinit var inflater: LayoutInflater
     var iteratorForQuestionNumber = 0
     lateinit var alertDialogBuilder:AlertDialog.Builder
+    lateinit var questionsMap: MutableMap<View,Question>
+    private lateinit var db:TestDatabase
 
     companion object{
         val CODE = 10004
@@ -34,6 +41,9 @@ class CreateTestActivity : AppCompatActivity() {
         questionList = arrayListOf()
 
         inflater = LayoutInflater.from(this@CreateTestActivity)
+        questionsMap = mutableMapOf()
+
+        db = TestDatabase.getInstance(this@CreateTestActivity)
 
         goToCreateQuestionBtn.setOnClickListener {
             val goToCreateQuestionIntent = Intent(this@CreateTestActivity,CreateQuestionActivity::class.java)
@@ -42,9 +52,9 @@ class CreateTestActivity : AppCompatActivity() {
         }
 
         createTestBtn.setOnClickListener {
-
             val intent = Intent()
             if(costumizeTest()){
+                saveTest(test)
                 intent.putExtra("cT",test)
                 setResult(Activity.RESULT_OK,intent)
                 finish()
@@ -62,9 +72,9 @@ class CreateTestActivity : AppCompatActivity() {
         if(requestCode == CODE){
             if(resultCode == Activity.RESULT_OK){
                 if(data != null){
-                    val resultQustion = data.getSerializableExtra("cQ") as Question
-                    questionList.add(resultQustion)
-                    drawQuestions(questionList)
+                    val resultQuestion = data.getSerializableExtra("cQ") as Question
+                    questionList.add(resultQuestion)
+                    drawQuestions(resultQuestion)
                 }else{
                     Log.e("resultQuestionData","data is null")
                 }
@@ -73,13 +83,12 @@ class CreateTestActivity : AppCompatActivity() {
         }
     }
 
-    private fun drawQuestions(list:ArrayList<Question>) {
-        for(q in list){
-            Log.e("TAG",q.questonText)
-            for(o in q.options){
-                Log.e("TAG","${o.optionText}:${o.optionNumber}:${o.isThisOptionRight}")
+    private fun drawQuestions(q:Question) {
+        val view = inflater.inflate(R.layout.in_add_question_view,null)
+        view.inAddQuestionTextShowView.text = q.questonText
+        questionsMap.put(view,q)
+        inAddQuestionsShowArea.addView(view)
 
-            }        }
     }
 
 
@@ -98,8 +107,11 @@ class CreateTestActivity : AppCompatActivity() {
         }
     }
 
-
-
+    private  fun saveTest(t:Test){
+        GlobalScope.async {
+            db.testDao().saveTest(t)
+        }
+    }
 
 
 

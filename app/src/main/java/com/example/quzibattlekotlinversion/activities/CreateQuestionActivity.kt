@@ -3,13 +3,11 @@ package com.example.quzibattlekotlinversion.activities
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Path
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.example.quzibattlekotlinversion.R
 import com.example.quzibattlekotlinversion.models.Option
@@ -20,9 +18,7 @@ import com.example.quzibattlekotlinversion.utils.Utils.Companion.validateEditing
 import kotlinx.android.synthetic.main.activity_create_question.*
 import kotlinx.android.synthetic.main.ask_option_diolog_view.view.*
 import kotlinx.android.synthetic.main.in_add_option_view.view.*
-import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class CreateQuestionActivity : AppCompatActivity() {
 
@@ -45,7 +41,7 @@ class CreateQuestionActivity : AppCompatActivity() {
         optionsList = arrayListOf<Option>()
         map = mutableMapOf()
 
-        questionNumber = intent.getIntExtra("qls",0)
+        questionNumber = intent.getIntExtra("qls",0) + 1
 
         optionIterator = 1
 
@@ -99,11 +95,11 @@ class CreateQuestionActivity : AppCompatActivity() {
 
     private fun addOptionForCreating(text:String){
         val view = inflater.inflate(R.layout.in_add_option_view,null)
-        view.inAddOptionShowView.text = text
+        view.inAddOptionTextShowView.text = text
         val option = Option(optionIterator,text,false)
 
         map.put(view,option)
-        inAddQuestionOptionsArea.addView(view)
+        inAddQuestionOptionsShowArea.addView(view)
 
         Log.e("iterator","$optionIterator")
         optionIterator++

@@ -1,5 +1,6 @@
 package com.example.quzibattlekotlinversion.models
 
+import androidx.room.Embedded
 import java.io.Serializable
 
 class Question(var questionNumber:Int,var questonText:String):Serializable {
