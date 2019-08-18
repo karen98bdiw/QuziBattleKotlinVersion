@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quzibattlekotlinversion.R
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter: TestRecyclerViewAdapter
     lateinit var manager:LinearLayoutManager
     lateinit var db:TestDatabase
+    var userChoosedTest:Test? = null
 
     companion object{
         val TEST_CODE = 10005
@@ -39,6 +41,33 @@ class MainActivity : AppCompatActivity() {
         adapter = TestRecyclerViewAdapter(this@MainActivity)
         manager = LinearLayoutManager(this@MainActivity,RecyclerView.VERTICAL,false)
 
+        if(userChoosedTest == null){
+            goToTakeTestBtn.isEnabled = false
+        }else{
+            Log.e("choosed","${userChoosedTest!!.testName}")
+        }
+
+        adapter.onTestChooseListener = object : TestRecyclerViewAdapter.OnTestChooseListener {
+            override fun onTestChoose(t: Test) {
+
+                    userChoosedTest = t
+                    goToTakeTestBtn.isEnabled = true
+                
+            }
+
+            override fun onTestUnchoose(t:Test) {
+                if(userChoosedTest == t){
+
+                    userChoosedTest == null
+                    goToTakeTestBtn.isEnabled = false
+
+                }
+
+            }
+
+
+        }
+
         recyclerViewForTest.layoutManager = manager
         recyclerViewForTest.adapter = adapter
 
@@ -51,6 +80,16 @@ class MainActivity : AppCompatActivity() {
         goToSendTestBtn.setOnClickListener {
             Log.e("btn","btnclicked")
         }
+
+        goToTakeTestBtn.setOnClickListener {
+
+            val intent = Intent(this@MainActivity,TakeTestActivity::class.java)
+            intent.putExtra("t",userChoosedTest)
+
+            startActivity(intent)
+
+            }
+
 
         loadTest()
 
@@ -88,7 +127,6 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             val list = db.testDao().loadTests()
 
-            Log.e("option", "ddd:${list.get(0).questions.first().questonText}")
             for (t in list) {
 
                 adapter.addTest(t)

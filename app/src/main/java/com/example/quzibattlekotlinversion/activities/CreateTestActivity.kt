@@ -97,7 +97,7 @@ class CreateTestActivity : AppCompatActivity() {
         if(Utils.validateEditing(inAddTestDurationInput,inAddTestNameInput)){
             val inputTestName = inAddTestNameInput.text.toString()
             val inputTestDuration = inAddTestDurationInput.text.toString()
-            test = Test(inputTestName,inputTestDuration,"curentUser")
+            test = Test(inputTestName,inputTestDuration,"curentUser","level")
             test.questions = questionList
             return true
 

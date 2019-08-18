@@ -9,7 +9,9 @@ import java.io.Serializable
 class Test(
     val testName:String,
     val testDuration:String,
-    val testCreator:String) :Serializable{
+    val testCreator:String,
+    val testLevel:String
+) :Serializable{
 
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0
