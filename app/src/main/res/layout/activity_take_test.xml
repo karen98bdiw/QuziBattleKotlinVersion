@@ -9,7 +9,7 @@
         tools:context=".activities.TakeTestActivity">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/takTestShowArea"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -21,39 +21,56 @@
             android:orientation="vertical"
 
     >
+            <TextView
+                    android:id="@+id/inTakeQuestionNumberShowView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="numberr"
 
-        <TextView
-                android:id="@+id/timerShowView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textSize="20sp"
-                android:text="timerView"
+            />
 
-        />
+
+            <TextView
+                    android:id="@+id/timerShowView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="20sp"
+                    android:text="timerView"
+
+            />
 
         <TextView
                 android:id="@+id/inTakeQuestionShowView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="question"
-                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/timerShowView"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center_horizontal"
         />
 
         <LinearLayout
-                android:id="@+id/inTakeQuestionOptionsShowView"
+                android:id="@+id/inTakeQuestionOptionsShowViewArea"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/inTakeQuestionShowView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="30dp"
-                android:layout_gravity="center"
         >
 
         </LinearLayout>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
             android:id="@+id/takTestButtonsArea"
@@ -66,8 +83,8 @@
             android:layout_height="0dp"
             android:orientation="horizontal"
     >
-        <Button android:layout_width="0dp" android:layout_height="wrap_content" android:text="skip" android:layout_weight=".3"/>
-        <Button android:layout_width="0dp" android:layout_height="wrap_content" android:text="answer" android:layout_weight=".3"/>
-        <Button android:layout_width="0dp" android:layout_height="wrap_content" android:text="end" android:layout_weight=".3"/>
+        <Button android:id="@+id/skipQuestionBtn" android:layout_width="0dp" android:layout_height="wrap_content" android:text="skip" android:layout_weight=".3"/>
+        <Button android:id="@+id/answerQuestionBtn" android:layout_width="0dp" android:layout_height="wrap_content" android:text="answer" android:layout_weight=".3"/>
+        <Button android:id="@+id/endTestBtn" android:layout_width="0dp" android:layout_height="wrap_content" android:text="end" android:layout_weight=".3"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,13 @@ class Question(var questionNumber:Int,var questonText:String):Serializable {
         options.remove(option)
     }
 
+    public fun rightOptionNumber():Int{
+        for (o in options){
+            if (o.isThisOptionRight){
+                return o.optionNumber
+            }
+        }
+        return 0
+    }
+
 }
