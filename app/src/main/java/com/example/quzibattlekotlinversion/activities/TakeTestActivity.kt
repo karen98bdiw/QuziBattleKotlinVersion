@@ -1,5 +1,6 @@
 package com.example.quzibattlekotlinversion.activities
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.example.quzibattlekotlinversion.models.Question
 import com.example.quzibattlekotlinversion.models.Test
 import kotlinx.android.synthetic.main.activity_take_test.*
 import kotlinx.android.synthetic.main.in_take_option_view.view.*
+import java.io.Serializable
 
 class TakeTestActivity : AppCompatActivity() {
 
@@ -29,6 +31,7 @@ class TakeTestActivity : AppCompatActivity() {
     var isOptionChoosed:Boolean = false
     lateinit var testTakeHistory:MutableMap<Int,Int>
     var rightOptionsCount = 0
+    lateinit var timer:CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,14 +65,26 @@ class TakeTestActivity : AppCompatActivity() {
         }
 
         endTestBtn.setOnClickListener {
-            checkTakeResult(testTakeHistory,test)
-            Log.e("right","${rightOptionsCount}")
+
+            sendResult()
+
         }
 
     }
 
+    private fun sendResult() {
+        checkTakeResult(testTakeHistory,test)
+        Log.e("right","${rightOptionsCount}")
+
+        val intent = Intent(this@TakeTestActivity,TestResultActivity::class.java)
+        intent.putExtra("tT",test)
+        intent.putExtra("tH",testTakeHistory as Serializable)
+
+        startActivity(intent)
+    }
+
     private fun startTimer(dur:Int){
-        val timer =object:  CountDownTimer(dur*1000L,1000){
+        timer = object:  CountDownTimer(dur*1000L,1000){
             override fun onFinish() {
                 Toast.makeText(this@TakeTestActivity,"Timer is end",Toast.LENGTH_LONG).show()
             }
@@ -164,7 +179,10 @@ class TakeTestActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
+    }
 
 
 }
